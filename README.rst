@@ -1,0 +1,1 @@
+Some measures, surrogates, and other tools for weighted, complete networks. In particular this includes an implementation of the method proposed in `Ansmann and Lehnertz, Phys. Rev. E 84, 026103 (2011) <http://doi.org/10.1103/PhysRevE.84.026103>`_.
