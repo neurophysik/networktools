@@ -279,6 +279,35 @@ static PyMethodDef networktools_methods[] = {
 	{NULL, NULL, 0, NULL}
 };
 
+#if PY_MAJOR_VERSION >= 3
+
+static struct PyModuleDef moduledef =
+{
+        PyModuleDef_HEAD_INIT,
+        "_networktools",
+        NULL,
+        -1,
+        networktools_methods,
+        NULL,
+        NULL,
+        NULL,
+        NULL
+};
+
+PyMODINIT_FUNC PyInit__networktools(void)
+{
+	PyObject * module = PyModule_Create(&moduledef);
+	import_array();
+	gsl_rng_env_setup();
+	rng = gsl_rng_alloc(gsl_rng_default);
+	return module;
+}
+
+#else
+
+#ifndef PyMODINIT_FUNC
+#define PyMODINIT_FUNC void
+#endif
 PyMODINIT_FUNC init_networktools()
 {
 	Py_InitModule("_networktools", networktools_methods);
@@ -286,4 +315,6 @@ PyMODINIT_FUNC init_networktools()
 	gsl_rng_env_setup();
 	rng = gsl_rng_alloc(gsl_rng_default);
 }
+
+#endif
 
